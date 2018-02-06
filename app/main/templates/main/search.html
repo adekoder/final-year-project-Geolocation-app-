@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block  body_section %}
+<body>
+    {% include 'main/nav.html' %}
+    <div class="container">
+        <div class="row centralize-150">
+            <div class="col s12">
+                <form >
+                    <input type='text' placeholder="search here" class="custom-input">
+                    <button type="submit" class="btn btn-yellow btn-width-100 right">search</button>
+                </form>
+            </div>
+        </div>
+        <div class="center-align">
+            <a href="{{url_for('main.explore')}}" class="center-align">Explore</a>
+        </div>
+    </div>
+</body>
+{% endblock %}

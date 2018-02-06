@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% block  body_section %}
+<body id="landing-page">
+    <div class="web-page">
+        <div class="container">
+            <div class="row  centralize">
+                <div class="col s12 center-align">
+                    <h1 class="center-align">LocateX</h1>
+                    <div class=" location-status-box">
+                        <p class="message-txt">Please wait<br> we are getting your location</p>
+                        <img src="{{ url_for('main.static', filename='images/loop.svg')}}" id="loading-icon">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block script_section %}
+        {{ super() }}
+        <script>
+
+            let search_btn = $('#search');
+            const loading_icon = $('#loading-icon');
+            const message_txt = $('.message-txt');
+
+            window.onload = function () {
+                getUserDeviceLocation(locationCoords, locationPermissionDenied);
+            }
+
+            function locationCoords(position)
+            {
+                var position_coordinate = position.coords;
+                var user_coords = {
+                    'latitude': position_coordinate.latitude,
+                    'longitude': position_coordinate.longitude,
+                    'accuracy': position_coordinate.accuracy
+                };
+                console.log(user_coords);
+                saveLocationIntoSession(user_coords);
+                redirect_to('search');
+            }
+            
+            function locationPermissionDenied(error){
+                if(error.PERMISSION_DENIED)
+                {
+                    console.log('permission denied');
+                    loading_icon.hide();
+                    message_txt.text('Oops!,unable to get access to your location');
+                }
+            }
+            
+            function saveLocationIntoSession(location)
+            {
+                sessionStorage.setItem('user_location', JSON.stringify(location));
+            }
+            
+            function getUserStoredLocation()
+            {
+                var user_location = sessionStorage.getItem('user_location');
+                return user_location;
+            }
+            
+            function redirect_to(url)
+            {
+                var redirecting_url = SCRIPT_ROOT+'/'+url;
+                window.location.assign(redirecting_url);
+            }
+        </script>
+    {% endblock %}
+</body>
+{% endblock %}

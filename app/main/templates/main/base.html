@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>School direction app</title>
+    {% block stlye_section %}
+    <link rel="stylesheet" href="{{url_for('main.static', filename='css/materialize.min.css')}}">
+    <link rel="stylesheet" href="{{ url_for('main.static', filename='css/custom.css')}}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% endblock %}
+</head>
+
+{% block body_section %}  
+
+    {% block script_section %}    
+    <script src="{{ url_for('main.static', filename='js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{ url_for('main.static', filename='js/materialize.min.js')}}"></script>
+    <script type=text/javascript>
+        const SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script src="{{url_for('main.static', filename='js/general.js')}}"></script>
+    {% endblock %}
+{% endblock %}
+
+</html>
+
