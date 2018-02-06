@@ -12,7 +12,7 @@ class Location(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
     def __repr__(self):
-        return "<Location : %s (%s) >" % self.location_id,self.coordinate
+        return "<Location : %s (%s) >" % (self.location_id,self.coordinate)
 
     
 
@@ -25,4 +25,4 @@ class Category(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
 
     def __repr__(self):
-        return "<Category : %s (%s)>" % self.category_id, self.category_name
+        return "<Category : %s (%s)>" % (self.category_id, self.category_name)
