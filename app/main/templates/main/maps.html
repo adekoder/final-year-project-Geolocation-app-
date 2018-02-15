@@ -32,7 +32,7 @@
             
             var user_location = JSON.parse(localStorage.getItem('location'));
             var origin = `${user_location.lat},${user_location.lng}`;
-            var destination = '6.547486,3.375733';
+            var destination = "{{ coords }}";
             
             const request = {
                 origin: origin,
@@ -46,7 +46,7 @@
                 var directionsService = new google.maps.DirectionsService();
                 directionsDisplay = new google.maps.DirectionsRenderer();
                 var mapOptions = {
-                  zoom:17,
+                  zoom:20,
                   center: user_location
                 }
                 map = new google.maps.Map(document.getElementById('map'), mapOptions);

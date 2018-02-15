@@ -6,7 +6,11 @@
         <div class="row centralize-150">
             <div class="col s12">
                 <form >
-                    <input type='text' placeholder="search here" class="custom-input">
+                    <input type='text' placeholder="search here" class="custom-input" id="search-box">
+                    <div class="search-result">
+                        <ul>
+                        </ul>
+                    </div>
                     <button type="submit" class="btn btn-yellow btn-width-100 right">search</button>
                 </form>
             </div>
@@ -15,5 +19,66 @@
             <a href="{{url_for('main.explore')}}" class="center-align">Explore</a>
         </div>
     </div>
+    {% block script_section %}
+    {{ super() }}
+    <script>
+            const search_box = $('#search-box');
+
+            function fetch_location(value)
+            {
+                var search_value = value;
+                var url = '/locations';
+                var data = {
+                    "location_name": search_value
+                }
+
+                $.ajax({
+                    method: 'POST',
+                    url: url,
+                    data: JSON.stringify(data),
+                    dataType:'json',
+                    contentType:'application/json',
+                    success: function (response)
+                    {
+                        var search_position = $('.search-result ul');
+                        var location_container = '';
+                        var locations = response.locations;
+                        var location_count = Object.keys(locations).length;
+                        if (location_count >= 1)
+                        {    
+                            $.each(response.locations, function (index, value){     
+                                location_container += `<li><a href="/map/${value.coordinate}">${value.location_name}</a></li>`;
+                            });
+                            search_position.html(location_container);
+                        }else{
+                            search_position.html(`<span class='no-match'>No location match your ${search_value}</span>`);
+                        }
+
+                    },
+                    error: function (response){
+                        console.log(response);
+                    }
+                });
+            }
+
+            search_box.on('keyup', function(e)
+            {
+                e.preventDefault();
+                var input_value = $(this).val();
+                if (input_value.length >= 1)
+                {
+                    console.log(input_value);
+                    fetch_location(input_value);
+                }else{
+                    var search_result = $('.search-result ul');
+                    search_result.empty();
+                }
+
+                
+                
+            });
+    </script>
+{% endblock script_section%}
+
 </body>
 {% endblock %}

@@ -93,3 +93,29 @@ body{
     max-height:100%;
   }
 
+.search-result{
+    width: 100%;
+    height:auto;
+    padding:0;
+}
+.search-result ul {
+    list-style-type:none;
+}
+.search-result ul li{
+    display:block;
+    line-height:1.5em;
+}
+
+.search-result ul li > a{
+    display:block;
+    margin:5px 0px;
+    background:#fff;
+    color:#444;
+    padding:20px 5px;
+}
+.search-result ul .no-match{
+    font-size:20px;
+    color:#ccc;
+    opacity:0.8;
+}
+
